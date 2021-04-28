@@ -1,4 +1,4 @@
-package com.constans;
+package com.gyenese.constans;
 
 public class FieldConstants {
 
