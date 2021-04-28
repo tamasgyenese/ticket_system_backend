@@ -1,6 +1,6 @@
 package com.gyenese.rowmapper;
 
-import com.constans.FieldConstants;
+import com.gyenese.constans.FieldConstants;
 import com.gyenese.model.UserDevice;
 import org.springframework.jdbc.core.RowMapper;
 
