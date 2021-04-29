@@ -4,14 +4,21 @@ import com.gyenese.constans.FieldConstants;
 import com.gyenese.constans.QueryConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Repository
 public class ICoreValidatorDAOimpl  implements ICoreValidatorDAO{
 
+
+    private  NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
     @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    public ICoreValidatorDAOimpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
 
     @Override
     public boolean isValidToken(String email, long userId, String deviceHash, String token) {
