@@ -1,6 +1,6 @@
 package com.gyenese.constans;
 
-public class FieldConstants {
+public final class FieldConstants {
 
     public static final String DB_FIELD_USER_ID = "USER_ID";
     public static final String DB_FIELD_NAME = "NAME";
