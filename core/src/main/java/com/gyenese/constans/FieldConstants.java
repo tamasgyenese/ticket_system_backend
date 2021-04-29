@@ -13,5 +13,7 @@ public final class FieldConstants {
     public static final String DB_FIELD_AMOUNT = "AMOUNT";
     public static final String DB_FIELD_CURRENCY = "CURRENCY";
 
+    public static final String TOKEN_SEPARATOR = "&";
+
 
 }
