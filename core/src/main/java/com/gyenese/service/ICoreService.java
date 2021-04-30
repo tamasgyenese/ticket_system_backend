@@ -1,6 +1,8 @@
 package com.gyenese.service;
 
+import com.gyenese.common.ServiceResponse;
+
 public interface ICoreService {
 
-    boolean isValidToken(String token64);
+    ServiceResponse<Boolean> isValidToken(String token64);
 }

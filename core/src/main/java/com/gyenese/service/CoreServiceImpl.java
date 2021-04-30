@@ -1,9 +1,12 @@
 package com.gyenese.service;
 
+import com.gyenese.common.ServiceResponse;
+import com.gyenese.constans.ErrorMessages;
 import com.gyenese.constans.FieldConstants;
 import com.gyenese.dao.ICoreValidatorDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Base64;
 
@@ -18,12 +21,18 @@ public class CoreServiceImpl implements ICoreService{
     }
 
     @Override
-    public boolean isValidToken(String token64) {
+    @Transactional
+    public ServiceResponse<Boolean> isValidToken(String token64) {
         String[] values = decodedString(token64);
-        if (values == null) { return false;}
-        if (values.length != 3) {return false;}
+        if (values == null) {
+            return new ServiceResponse<>(Boolean.FALSE,false,ErrorMessages.ERROR_MSG_10050, ErrorMessages.ERROR_CODE_10050);
+        }
+        if (values.length != 3) {
+            return new ServiceResponse<>(Boolean.FALSE,false,ErrorMessages.ERROR_MSG_10051, ErrorMessages.ERROR_CODE_10051);
+        }
 
-        return iCoreValidatorDAO.isValidToken(values[0],Long.parseLong(values[1]),values[2],token64);
+        // TODO
+        return null;
     }
 
 

@@ -13,7 +13,7 @@ import java.util.Map;
 public class ICoreValidatorDAOimpl  implements ICoreValidatorDAO{
 
 
-    private  NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
     public ICoreValidatorDAOimpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
