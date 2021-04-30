@@ -7,7 +7,7 @@
         <module>ticket</module>
         <module>core</module>
         <module>api</module>
-        <module>partner</module>
+        <module>systemApplication</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -20,8 +20,18 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>ticket_system</name>
     <description>ticket management system</description>
+
+    <developers>
+        <developer>
+            <name>Tamás Gyenese</name>
+            <email>gyenesetomi@gmail.com</email>
+            <timezone>+2</timezone>
+        </developer>
+    </developers>
+
     <properties>
         <java.version>11</java.version>
+        <start-class>com.bt.collab.alu.core.webapp.Application</start-class>
     </properties>
     <dependencies>
         <dependency>
@@ -44,6 +54,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
 
     <build>
         <plugins>
