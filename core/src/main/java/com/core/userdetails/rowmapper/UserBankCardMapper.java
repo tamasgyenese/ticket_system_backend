@@ -18,7 +18,7 @@ public class UserBankCardMapper implements RowMapper<UserBankCard> {
         UserBankCard userBankCard = new UserBankCard();
         userBankCard.setUserId(rs.getLong(FieldConstants.DB_FIELD_USER_ID));
         userBankCard.setCardId(rs.getString(FieldConstants.DB_FIELD_CARD_ID));
-        userBankCard.setCardNumber(rs.getString(FieldConstants.DB_FIELD_CARD_NUMBER));
+        userBankCard.setCardNumber(rs.getLong(FieldConstants.DB_FIELD_CARD_NUMBER));
         userBankCard.setCvc(rs.getInt(FieldConstants.DB_FIELD_CVC));
         userBankCard.setName(rs.getString(FieldConstants.DB_FIELD_NAME));
         userBankCard.setAmount(rs.getLong(FieldConstants.DB_FIELD_AMOUNT));

@@ -10,7 +10,7 @@ public class UserBankCard {
 
     private long userId;
     private String cardId;
-    private String cardNumber;
+    private long cardNumber;
     private int cvc;
     private String name;
     private long amount;
@@ -19,7 +19,7 @@ public class UserBankCard {
     public UserBankCard() {
     }
 
-    public UserBankCard(long userId, String cardId, String cardNumber, int cvc, String name, long amount, String currency) {
+    public UserBankCard(long userId, String cardId, long cardNumber, int cvc, String name, long amount, String currency) {
         this.userId = userId;
         this.cardId = cardId;
         this.cardNumber = cardNumber;
@@ -45,11 +45,11 @@ public class UserBankCard {
         this.cardId = cardId;
     }
 
-    public String getCardNumber() {
+    public long getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(String cardNumber) {
+    public void setCardNumber(long cardNumber) {
         this.cardNumber = cardNumber;
     }
 

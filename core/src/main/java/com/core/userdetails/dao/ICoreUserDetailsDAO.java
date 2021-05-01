@@ -11,6 +11,8 @@ public interface ICoreUserDetailsDAO {
      */
     long isValidToken(String email, long userId, String deviceHash, String token);
 
+    long validateBankCard(long userId, String cardId, long eventId, String seatId);
+
 
 
 

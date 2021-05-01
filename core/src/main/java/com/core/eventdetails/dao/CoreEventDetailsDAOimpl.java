@@ -1,6 +1,7 @@
 package com.core.eventdetails.dao;
 
 import com.core.constans.FieldConstants;
+import com.core.constans.Messages;
 import com.core.constans.QueryConstants;
 import com.core.eventdetails.model.Event;
 import com.core.eventdetails.model.Seat;
@@ -47,5 +48,18 @@ public class CoreEventDetailsDAOimpl implements ICoreEventDetailsDAO {
         }
         event.setSeats(seats);
         return event;
+    }
+
+    @Override
+    public long validateEvent(long eventId, String seatId) {
+        Map<String, Object> namedParameters = new HashMap<>();
+        namedParameters.put(FieldConstants.DB_EVENT_ID, eventId);
+        namedParameters.put(FieldConstants.DB_ID, seatId);
+        try {
+            return namedParameterJdbcTemplate.queryForObject(QueryConstants.VALIDATE_EVENT, namedParameters, Long.class);
+        } catch (Exception e) {
+            e.getMessage();
+            return Messages.ERROR_CODE_20404;
+        }
     }
 }
