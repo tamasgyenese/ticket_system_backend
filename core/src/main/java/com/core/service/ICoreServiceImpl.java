@@ -1,22 +1,39 @@
-package com.core.userdetails.service;
+package com.core.service;
 
-import com.core.constans.Messages;
 import com.core.constans.FieldConstants;
+import com.core.constans.Messages;
+import com.core.eventdetails.dao.ICoreEventDetailsDAO;
+import com.core.eventdetails.model.Event;
 import com.core.userdetails.dao.ICoreUserDetailsDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Base64;
+import java.util.List;
 
 @Service
-public class CoreUserDetailsServiceImpl implements ICoreUserDetailsService {
+public class ICoreServiceImpl implements ICoreService{
 
+    private final ICoreEventDetailsDAO iCoreEventDetailsDAO;
     private final ICoreUserDetailsDAO iCoreUserDetailsDAO;
 
     @Autowired
-    public CoreUserDetailsServiceImpl(ICoreUserDetailsDAO iCoreUserDetailsDAO) {
+    public ICoreServiceImpl(ICoreEventDetailsDAO iCoreEventDetailsDAO, ICoreUserDetailsDAO iCoreUserDetailsDAO) {
+        this.iCoreEventDetailsDAO = iCoreEventDetailsDAO;
         this.iCoreUserDetailsDAO = iCoreUserDetailsDAO;
+    }
+
+    @Override
+    @Transactional
+    public List<Event> getEvents() {
+        return iCoreEventDetailsDAO.getEvents();
+    }
+
+    @Override
+    @Transactional
+    public Event getEventDetails(long eventId) {
+        return iCoreEventDetailsDAO.getEventDetails(eventId);
     }
 
     @Override
@@ -46,4 +63,5 @@ public class CoreUserDetailsServiceImpl implements ICoreUserDetailsService {
         String decodedString = new String(decodedBytes);
         return decodedString.split(FieldConstants.TOKEN_SEPARATOR);
     }
+
 }
