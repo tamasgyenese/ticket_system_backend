@@ -1,8 +1,8 @@
-package com.core.service;
+package com.core.userdetails.service;
 
 import com.core.constans.Messages;
 import com.core.constans.FieldConstants;
-import com.core.dao.ICoreValidatorDAO;
+import com.core.userdetails.dao.ICoreUserDetailsDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,13 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Base64;
 
 @Service
-public class CoreServiceImpl implements ICoreService{
+public class CoreUserDetailsServiceImpl implements ICoreUserDetailsService {
 
-    private final ICoreValidatorDAO iCoreValidatorDAO;
+    private final ICoreUserDetailsDAO iCoreUserDetailsDAO;
 
     @Autowired
-    public CoreServiceImpl(ICoreValidatorDAO iCoreValidatorDAO) {
-        this.iCoreValidatorDAO = iCoreValidatorDAO;
+    public CoreUserDetailsServiceImpl(ICoreUserDetailsDAO iCoreUserDetailsDAO) {
+        this.iCoreUserDetailsDAO = iCoreUserDetailsDAO;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class CoreServiceImpl implements ICoreService{
         long id = Long.parseLong(values[1]);
         String deviceHash = values[2];
 
-        return iCoreValidatorDAO.isValidToken(email, id, deviceHash, token64) == 1 ? Messages.SUCCESS_CODE : Messages.ERROR_CODE_10050;
+        return iCoreUserDetailsDAO.isValidToken(email, id, deviceHash, token64) == 1 ? Messages.SUCCESS_CODE : Messages.ERROR_CODE_10050;
     }
 
 

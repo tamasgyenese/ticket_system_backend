@@ -1,7 +1,7 @@
-package com.core.rowmapper;
+package com.core.userdetails.rowmapper;
 
 import com.core.constans.FieldConstants;
-import com.core.model.UserBankCard;
+import com.core.userdetails.model.UserBankCard;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

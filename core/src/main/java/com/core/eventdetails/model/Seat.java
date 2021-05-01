@@ -1,29 +1,29 @@
-package com.core.mock;
+package com.core.eventdetails.model;
 
 import java.util.Objects;
 
 public class Seat {
 
-    private long id;
+    private String id;
     private long price;
     private String currency;
-    private boolean rserved;
+    private boolean reserved;
 
     public Seat() {
     }
 
-    public Seat(long id, long price, String currency, boolean rserved) {
+    public Seat(String id, long price, String currency, boolean reserved) {
         this.id = id;
         this.price = price;
         this.currency = currency;
-        this.rserved = rserved;
+        this.reserved = reserved;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -43,12 +43,12 @@ public class Seat {
         this.currency = currency;
     }
 
-    public boolean isRserved() {
-        return rserved;
+    public boolean isReserved() {
+        return reserved;
     }
 
-    public void setRserved(boolean rserved) {
-        this.rserved = rserved;
+    public void setReserved(boolean reserved) {
+        this.reserved = reserved;
     }
 
     @Override
@@ -58,13 +58,13 @@ public class Seat {
         Seat seat = (Seat) o;
         return id == seat.id &&
                 price == seat.price &&
-                rserved == seat.rserved &&
+                reserved == seat.reserved &&
                 Objects.equals(currency, seat.currency);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, price, currency, rserved);
+        return Objects.hash(id, price, currency, reserved);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class Seat {
                 "id=" + id +
                 ", price=" + price +
                 ", currency='" + currency + '\'' +
-                ", rserved=" + rserved +
+                ", reserved=" + reserved +
                 '}';
     }
 }

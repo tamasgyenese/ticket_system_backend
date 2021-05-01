@@ -1,7 +1,9 @@
 package com.api.controller;
 
 import com.core.common.ServiceResponse;
-import com.core.mock.Event;
+import com.core.eventdetails.model.Event;
+import com.core.eventdetails.model.Reserve;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,5 +20,8 @@ public interface IApiController {
     @ResponseBody
     ServiceResponse<Event> getEvent(@RequestHeader Map<String, String> headers, @PathVariable long id);
 
+    @PostMapping("/pay/eventId/{eventId}/seatId/{seatId}/cardId/{cardId}")
+    @ResponseBody
+    ServiceResponse<Reserve> pay(@RequestHeader Map<String, String> headers,@PathVariable int eventId, @PathVariable String seatId, @PathVariable int cardId);
 
 }

@@ -1,6 +1,9 @@
-package com.core.mock;
+package com.core.eventdetails.model;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
@@ -8,6 +11,7 @@ import java.util.Objects;
 /**
  * Mock POJO for API Response
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Event {
 
     private long eventId;
@@ -21,16 +25,16 @@ public class Event {
     public Event() {
     }
 
-    public Event(long eventId, String title, String location, Timestamp startTimeStamp, Timestamp endTimeStamp) {
+    public Event(long eventId) {
+        this.eventId = eventId;
+    }
+
+    public Event(long eventId, String title, String location, String startTimeStamp, String endTimeStamp, List<Seat> seats) {
         this.eventId = eventId;
         this.title = title;
         this.location = location;
-        this.startTimeStamp = String.valueOf(startTimeStamp.getTime());
-        this.endTimeStamp = String.valueOf(endTimeStamp.getTime());
-    }
-
-    public Event(long eventId,  List<Seat> seats) {
-        this.eventId = eventId;
+        this.startTimeStamp = startTimeStamp;
+        this.endTimeStamp = endTimeStamp;
         this.seats = seats;
     }
 
@@ -62,16 +66,16 @@ public class Event {
         return startTimeStamp;
     }
 
-    public void setStartTimeStamp(Timestamp startTimeStamp) {
-        this.startTimeStamp = String.valueOf(startTimeStamp.getTime());
+    public void setStartTimeStamp(String startTimeStamp) {
+        this.startTimeStamp = startTimeStamp;
     }
 
     public String getEndTimeStamp() {
         return endTimeStamp;
     }
 
-    public void setEndTimeStamp(Timestamp endTimeStamp) {
-        this.endTimeStamp = String.valueOf(endTimeStamp.getTime());
+    public void setEndTimeStamp(String endTimeStamp) {
+        this.endTimeStamp = endTimeStamp;
     }
 
     public List<Seat> getSeats() {
