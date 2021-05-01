@@ -11,4 +11,6 @@ public interface ICoreService {
     List<Event> getEvents();
 
     Event getEventDetails(long eventId);
+
+    long payValidation(long eventId, String seatId, String cardId, String token);
 }

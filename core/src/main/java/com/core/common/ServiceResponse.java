@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Random;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ServiceResponse<T> implements Serializable {
@@ -14,10 +15,23 @@ public class ServiceResponse<T> implements Serializable {
     private T data;
     private boolean success;
     private String errorMessage;
-    private long errorCode;
+    private Long errorCode;
+    private long reservationId;
 
 
     public ServiceResponse() {
+    }
+
+    public ServiceResponse(boolean success) {
+        this.success = success;
+        if (success) {
+            Random random = new Random();
+            this.reservationId = Math.abs(random.nextLong());
+        }
+    }
+
+    public ServiceResponse(T data) {
+        this.data = data;
     }
 
     public ServiceResponse(T data, boolean success) {
@@ -43,12 +57,21 @@ public class ServiceResponse<T> implements Serializable {
         this.errorCode = errorCode;
     }
 
+
     public T getData() {
         return data;
     }
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public long getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(long reservationId) {
+        this.reservationId = reservationId;
     }
 
     public boolean isSuccess() {
@@ -67,13 +90,14 @@ public class ServiceResponse<T> implements Serializable {
         this.errorMessage = errorMessage;
     }
 
-    public long getErrorCode() {
+    public Long getErrorCode() {
         return errorCode;
     }
 
-    public void setErrorCode(long errorCode) {
+    public void setErrorCode(Long errorCode) {
         this.errorCode = errorCode;
     }
+
 
     @Override
     public boolean equals(Object o) {

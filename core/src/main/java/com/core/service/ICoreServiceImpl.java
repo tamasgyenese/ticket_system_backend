@@ -53,10 +53,16 @@ public class ICoreServiceImpl implements ICoreService{
         return iCoreUserDetailsDAO.isValidToken(email, id, deviceHash, token64) == 1 ? Messages.SUCCESS_CODE : Messages.ERROR_CODE_10050;
     }
 
-
-
-
-
+    @Override
+    @Transactional
+    public long payValidation(long eventId, String seatId, String cardId, String token) {
+        long userId = Long.parseLong(decodedString(token)[1]);
+        long eventValidate = iCoreEventDetailsDAO.validateEvent(eventId, seatId);
+        if (eventValidate != Messages.SUCCESS_CODE) {
+            return eventValidate;
+        }
+        return iCoreUserDetailsDAO.validateBankCard(userId, cardId, eventId, seatId);
+    }
 
     public String[] decodedString(String token64) {
         byte[] decodedBytes = Base64.getDecoder().decode(token64);

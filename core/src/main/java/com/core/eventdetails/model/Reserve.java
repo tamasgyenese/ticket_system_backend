@@ -2,6 +2,7 @@ package com.core.eventdetails.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
@@ -19,7 +20,7 @@ public class Reserve {
         this.success = success;
         if (success) {
             Random random = new Random();
-            this.reservationID = random.nextLong();
+            this.reservationID = Math.abs(random.nextLong());
         }
     }
 

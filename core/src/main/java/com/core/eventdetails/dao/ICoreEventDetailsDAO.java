@@ -9,4 +9,6 @@ public interface ICoreEventDetailsDAO {
     List<Event> getEvents();
 
     Event getEventDetails(long eventId);
+
+    long validateEvent(long eventId, String seatId);
 }

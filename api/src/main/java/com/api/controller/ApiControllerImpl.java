@@ -42,7 +42,18 @@ public class ApiControllerImpl implements IApiController {
     }
 
     @Override
-    public ServiceResponse<Reserve> pay(Map<String, String> headers, int eventId, String seatId, int cardId) {
-        return null;
+    public ServiceResponse<Reserve> pay(Map<String, String> headers, long eventId, String seatId, String cardId) {
+        String token = headers.get(HEADERS_AUTH);
+        long validator = iCoreService.isValidToken(token);
+        if (validator != Messages.SUCCESS_CODE) {
+            return new ServiceResponse<>(null,false, Messages.messagesMap.get(validator), validator);
+        }
+        validator = iCoreService.payValidation(eventId,seatId,cardId,token);
+        if (validator == Messages.SUCCESS_CODE) {
+            return new ServiceResponse<>(true);
+        } else {
+            return new ServiceResponse<>(null, false, Messages.messagesMap.get(validator), validator);
+        }
+
     }
 }
