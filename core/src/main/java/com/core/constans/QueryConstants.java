@@ -45,4 +45,8 @@ public final class QueryConstants {
                                               + "           ELSE 0\n"
                                               + "           END AS MSG;";
 
+    public static final String RESERVE_SEAT = "UPDATE Seat S \n"
+                                           +  "    SET s.RESERVED = TRUE\n"
+                                           +  "WHERE S.EVENT_ID=:EVENT_ID AND S.ID=:ID;";
+
 }

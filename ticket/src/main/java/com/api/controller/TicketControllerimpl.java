@@ -6,20 +6,18 @@ import com.core.eventdetails.model.Event;
 import com.core.eventdetails.model.Reserve;
 import com.core.service.ICoreService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
-@Service
-public class ApiControllerImpl implements IApiController {
+public class TicketControllerimpl implements ITicketController {
 
     private static final String HEADERS_AUTH = "authorization";
 
     private final ICoreService iCoreService;
 
     @Autowired
-    public ApiControllerImpl(ICoreService iCoreService) {
+    public TicketControllerimpl(ICoreService iCoreService) {
         this.iCoreService = iCoreService;
     }
 
@@ -42,7 +40,7 @@ public class ApiControllerImpl implements IApiController {
     }
 
     @Override
-    public ServiceResponse<Reserve> pay(Map<String, String> headers, long eventId, String seatId, String cardId) {
+    public ServiceResponse<Reserve> reserve(Map<String, String> headers, long eventId, String seatId, String cardId) {
         String token = headers.get(HEADERS_AUTH);
         long validator = iCoreService.isValidToken(token);
         if (validator != Messages.SUCCESS_CODE) {

@@ -62,4 +62,16 @@ public class CoreEventDetailsDAOimpl implements ICoreEventDetailsDAO {
             return Messages.ERROR_CODE_20404;
         }
     }
+
+    @Override
+    public void reserveSeat(long eventId, String seatId) {
+        Map<String, Object> namedParameters = new HashMap<>();
+        namedParameters.put(FieldConstants.DB_EVENT_ID, eventId);
+        namedParameters.put(FieldConstants.DB_ID, seatId);
+        try {
+            namedParameterJdbcTemplate.update(QueryConstants.RESERVE_SEAT, namedParameters);
+        } catch (Exception e){
+            e.getMessage();
+        }
+    }
 }

@@ -11,5 +11,12 @@
 
     <artifactId>ticket</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.gyenese</groupId>
+            <artifactId>core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>

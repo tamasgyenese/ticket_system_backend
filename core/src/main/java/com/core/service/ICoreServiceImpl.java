@@ -61,7 +61,11 @@ public class ICoreServiceImpl implements ICoreService{
         if (eventValidate != Messages.SUCCESS_CODE) {
             return eventValidate;
         }
-        return iCoreUserDetailsDAO.validateBankCard(userId, cardId, eventId, seatId);
+        long cardValidate = iCoreUserDetailsDAO.validateBankCard(userId, cardId, eventId, seatId);
+        if (cardValidate == Messages.SUCCESS_CODE) {
+            iCoreEventDetailsDAO.reserveSeat(eventId, seatId);
+        }
+        return cardValidate;
     }
 
     public String[] decodedString(String token64) {
