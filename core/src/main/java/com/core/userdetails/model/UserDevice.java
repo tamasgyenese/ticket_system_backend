@@ -1,4 +1,4 @@
-package com.core.model;
+package com.core.userdetails.model;
 
 import java.util.Objects;
 

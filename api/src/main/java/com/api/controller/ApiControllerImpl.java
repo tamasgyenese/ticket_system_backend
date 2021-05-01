@@ -3,7 +3,7 @@ package com.api.controller;
 import com.core.common.ServiceResponse;
 import com.core.constans.Messages;
 import com.core.mock.Event;
-import com.core.service.ICoreService;
+import com.core.userdetails.service.ICoreUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +13,10 @@ import java.util.Map;
 @Service
 public class ApiControllerImpl implements IApiController {
 
-    private final ICoreService iCoreService;
+    private final ICoreUserDetailsService iCoreService;
 
     @Autowired
-    public ApiControllerImpl(ICoreService iCoreService) {
+    public ApiControllerImpl(ICoreUserDetailsService iCoreService) {
         this.iCoreService = iCoreService;
     }
 

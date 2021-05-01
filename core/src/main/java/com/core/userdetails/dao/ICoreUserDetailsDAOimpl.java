@@ -1,4 +1,4 @@
-package com.core.dao;
+package com.core.userdetails.dao;
 
 import com.core.constans.FieldConstants;
 import com.core.constans.QueryConstants;
@@ -10,13 +10,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public class ICoreValidatorDAOimpl  implements ICoreValidatorDAO{
+public class ICoreUserDetailsDAOimpl implements ICoreUserDetailsDAO {
 
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
-    public ICoreValidatorDAOimpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public ICoreUserDetailsDAOimpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 

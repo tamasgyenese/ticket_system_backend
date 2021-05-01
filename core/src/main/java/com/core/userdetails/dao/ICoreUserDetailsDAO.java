@@ -1,6 +1,6 @@
-package com.core.dao;
+package com.core.userdetails.dao;
 
-public interface ICoreValidatorDAO {
+public interface ICoreUserDetailsDAO {
 
     /**
      * This method validates the given threeSet is valid or not
