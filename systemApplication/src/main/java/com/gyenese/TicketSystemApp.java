@@ -1,5 +1,6 @@
 package com.gyenese;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

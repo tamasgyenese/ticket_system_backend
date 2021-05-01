@@ -1,9 +1,12 @@
 package com.core.common;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ServiceResponse<T> implements Serializable {
 
     private static final long serialVersionUID = 324234234234211L;
