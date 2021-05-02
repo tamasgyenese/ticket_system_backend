@@ -11,13 +11,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public class ICoreUserDetailsDAOimpl implements ICoreUserDetailsDAO {
+public class CoreUserDetailsDAOimpl implements ICoreUserDetailsDAO {
 
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
-    public ICoreUserDetailsDAOimpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public CoreUserDetailsDAOimpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 

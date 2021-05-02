@@ -1,6 +1,8 @@
 package com.core.service;
 
+import com.core.common.ServiceResponse;
 import com.core.eventdetails.model.Event;
+import com.core.eventdetails.model.Reserve;
 
 import java.util.List;
 
@@ -8,9 +10,10 @@ public interface ICoreService {
 
     long isValidToken(String token64);
 
-    List<Event> getEvents();
+    ServiceResponse<List<Event>> getEvents(String token);
 
-    Event getEventDetails(long eventId);
+    ServiceResponse<Event> getEventDetails(long eventId, String token);
 
-    long payValidation(long eventId, String seatId, String cardId, String token);
+    ServiceResponse<Reserve> payValidation(long eventId, String seatId, String cardId, String token);
+
 }

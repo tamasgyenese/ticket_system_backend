@@ -1,9 +1,11 @@
 package com.core.service;
 
+import com.core.common.ServiceResponse;
 import com.core.constans.FieldConstants;
 import com.core.constans.Messages;
 import com.core.eventdetails.dao.ICoreEventDetailsDAO;
 import com.core.eventdetails.model.Event;
+import com.core.eventdetails.model.Reserve;
 import com.core.userdetails.dao.ICoreUserDetailsDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,27 +15,35 @@ import java.util.Base64;
 import java.util.List;
 
 @Service
-public class ICoreServiceImpl implements ICoreService{
+public class CoreServiceImpl implements ICoreService{
 
     private final ICoreEventDetailsDAO iCoreEventDetailsDAO;
     private final ICoreUserDetailsDAO iCoreUserDetailsDAO;
 
     @Autowired
-    public ICoreServiceImpl(ICoreEventDetailsDAO iCoreEventDetailsDAO, ICoreUserDetailsDAO iCoreUserDetailsDAO) {
+    public CoreServiceImpl(ICoreEventDetailsDAO iCoreEventDetailsDAO, ICoreUserDetailsDAO iCoreUserDetailsDAO) {
         this.iCoreEventDetailsDAO = iCoreEventDetailsDAO;
         this.iCoreUserDetailsDAO = iCoreUserDetailsDAO;
     }
 
     @Override
     @Transactional
-    public List<Event> getEvents() {
-        return iCoreEventDetailsDAO.getEvents();
+    public ServiceResponse<List<Event>> getEvents(String token) {
+        long validator = isValidToken(token);
+        if (validator != Messages.SUCCESS_CODE) {
+            return new ServiceResponse<>(null,false, Messages.MESSAGE_MAP.get(validator), validator);
+        }
+        return new ServiceResponse<>(iCoreEventDetailsDAO.getEvents(),true);
     }
 
     @Override
     @Transactional
-    public Event getEventDetails(long eventId) {
-        return iCoreEventDetailsDAO.getEventDetails(eventId);
+    public ServiceResponse<Event> getEventDetails(long eventId, String token) {
+        long validator = isValidToken(token);
+        if (validator != Messages.SUCCESS_CODE) {
+            return new ServiceResponse<>(null,false, Messages.MESSAGE_MAP.get(validator), validator);
+        }
+        return new ServiceResponse<>(iCoreEventDetailsDAO.getEventDetails(eventId),true);
     }
 
     @Override
@@ -55,17 +65,24 @@ public class ICoreServiceImpl implements ICoreService{
 
     @Override
     @Transactional
-    public long payValidation(long eventId, String seatId, String cardId, String token) {
+    public ServiceResponse<Reserve> payValidation(long eventId, String seatId, String cardId, String token) {
+        long validator = isValidToken(token);
+        if (validator != Messages.SUCCESS_CODE) {
+            return new ServiceResponse<>(null,false, Messages.MESSAGE_MAP.get(validator), validator);
+        }
+
         long userId = Long.parseLong(decodedString(token)[1]);
         long eventValidate = iCoreEventDetailsDAO.validateEvent(eventId, seatId);
         if (eventValidate != Messages.SUCCESS_CODE) {
-            return eventValidate;
+            return new ServiceResponse<>(null, false, Messages.MESSAGE_MAP.get(eventValidate),eventValidate);
         }
         long cardValidate = iCoreUserDetailsDAO.validateBankCard(userId, cardId, eventId, seatId);
         if (cardValidate == Messages.SUCCESS_CODE) {
             iCoreEventDetailsDAO.reserveSeat(eventId, seatId);
+        } else {
+            return new ServiceResponse<>(null, false, Messages.MESSAGE_MAP.get(cardValidate), cardValidate);
         }
-        return cardValidate;
+        return new ServiceResponse<>(true);
     }
 
     public String[] decodedString(String token64) {

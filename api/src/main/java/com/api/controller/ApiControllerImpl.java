@@ -25,35 +25,16 @@ public class ApiControllerImpl implements IApiController {
 
     @Override
     public ServiceResponse<List<Event>> getEvents(Map<String, String> headers) {
-        long validator = iCoreService.isValidToken(headers.get(HEADERS_AUTH));
-        if (validator != Messages.SUCCESS_CODE) {
-            return new ServiceResponse<>(null,false, Messages.MESSAGE_MAP.get(validator), validator);
-        }
-        return new ServiceResponse<>(iCoreService.getEvents(),true);
+        return iCoreService.getEvents(headers.get(HEADERS_AUTH));
     }
 
     @Override
     public ServiceResponse<Event> getEvent(Map<String, String> headers, long id) {
-        long validator = iCoreService.isValidToken(headers.get(HEADERS_AUTH));
-        if (validator != Messages.SUCCESS_CODE) {
-            return new ServiceResponse<>(null,false, Messages.MESSAGE_MAP.get(validator), validator);
-        }
-        return new ServiceResponse<>(iCoreService.getEventDetails(id),true);
+        return iCoreService.getEventDetails(id,headers.get(HEADERS_AUTH));
     }
 
     @Override
     public ServiceResponse<Reserve> pay(Map<String, String> headers, long eventId, String seatId, String cardId) {
-        String token = headers.get(HEADERS_AUTH);
-        long validator = iCoreService.isValidToken(token);
-        if (validator != Messages.SUCCESS_CODE) {
-            return new ServiceResponse<>(null,false, Messages.MESSAGE_MAP.get(validator), validator);
-        }
-        validator = iCoreService.payValidation(eventId,seatId,cardId,token);
-        if (validator == Messages.SUCCESS_CODE) {
-            return new ServiceResponse<>(true);
-        } else {
-            return new ServiceResponse<>(null, false, Messages.MESSAGE_MAP.get(validator), validator);
-        }
-
+        return iCoreService.payValidation(eventId, seatId, cardId,headers.get(HEADERS_AUTH));
     }
 }
