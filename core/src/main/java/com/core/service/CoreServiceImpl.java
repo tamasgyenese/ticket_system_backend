@@ -31,6 +31,11 @@ public class CoreServiceImpl implements ICoreService {
         this.iCoreUserDetailsDAO = iCoreUserDetailsDAO;
     }
 
+    /**
+     * get all event from DAO after token validation
+     * @param token
+     * @return
+     */
     @Override
     @Transactional
     public ServiceResponse<List<Event>> getEvents(String token) {
@@ -46,6 +51,12 @@ public class CoreServiceImpl implements ICoreService {
         }
     }
 
+    /**
+     * get event details for a given eventId after token validation
+     * @param eventId
+     * @param token
+     * @return
+     */
     @Override
     @Transactional
     public ServiceResponse<Event> getEventDetails(long eventId, String token) {
@@ -61,10 +72,15 @@ public class CoreServiceImpl implements ICoreService {
         }
     }
 
+    /**
+     * Token validation
+     * @param token64
+     * @return
+     */
     @Override
     @Transactional
     public long isValidToken(String token64) {
-        logger.debug("Validate token: {}", token64);
+        logger.trace("Validate token: {}", token64);
         String email;
         long userId;
         String deviceHash;
@@ -92,31 +108,49 @@ public class CoreServiceImpl implements ICoreService {
         }
     }
 
+    /**
+     * validate event and bankcard after token validation, if everything is oke it reserves the seat
+     * @param eventId
+     * @param seatId
+     * @param cardId
+     * @param token
+     * @return
+     */
     @Override
     @Transactional
     public ServiceResponse<Reserve> payValidation(long eventId, String seatId, String cardId, String token) {
+        logger.trace("Pay validation for event: {}, setad: {}, cardid: {}, token:{}", eventId, seatId, cardId, token);
         long validator = isValidToken(token);
         if (validator != Messages.SUCCESS_CODE) {
+            logger.error("Failure during validation for token: {} with error code: {}", token, validator);
             return new ServiceResponse<>(null, false, Messages.MESSAGE_MAP.get(validator), validator);
         }
         try {
             long userId = Long.parseLong(decodedString(token)[1]);
             long eventValidate = iCoreEventDetailsDAO.validateEvent(eventId, seatId);
             if (eventValidate != Messages.SUCCESS_CODE) {
+                logger.error("Failure during event validation for event: {} and seat: {}", eventId, seatId);
                 return new ServiceResponse<>(null, false, Messages.MESSAGE_MAP.get(eventValidate), eventValidate);
             }
             long cardValidate = iCoreUserDetailsDAO.validateBankCard(userId, cardId, eventId, seatId);
             if (cardValidate == Messages.SUCCESS_CODE) {
+                logger.error("Failure during card validation for card: {} and user: {}", cardId, userId);
                 iCoreEventDetailsDAO.reserveSeat(eventId, seatId);
             } else {
                 return new ServiceResponse<>(null, false, Messages.MESSAGE_MAP.get(cardValidate), cardValidate);
             }
             return new ServiceResponse<>(true);
         } catch (CoreDAOException e) {
+            logger.error("Failure during payvalidationfor event: {}, setad: {}, cardid: {}, token:{}", eventId, seatId, cardId, token);
             return new ServiceResponse<>(null, false, Messages.MESSAGE_MAP.get(e.getErrorCode()), e.getErrorCode());
         }
     }
 
+    /**
+     * decode base64 Token
+     * @param token64
+     * @return
+     */
     public String[] decodedString(String token64) {
         byte[] decodedBytes = Base64.getDecoder().decode(token64);
         String decodedString = new String(decodedBytes);

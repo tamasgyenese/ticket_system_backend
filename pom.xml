@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <modules>
-        <module>ticket</module>
         <module>core</module>
         <module>api</module>
         <module>systemApplication</module>
+        <module>ticketmodule</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
