@@ -16,7 +16,7 @@ public class ServiceResponse<T> implements Serializable {
     private boolean success;
     private String errorMessage;
     private Long errorCode;
-    private long reservationId;
+    private Long reservationId;
 
 
     public ServiceResponse() {
@@ -66,11 +66,11 @@ public class ServiceResponse<T> implements Serializable {
         this.data = data;
     }
 
-    public long getReservationId() {
+    public Long getReservationId() {
         return reservationId;
     }
 
-    public void setReservationId(long reservationId) {
+    public void setReservationId(Long reservationId) {
         this.reservationId = reservationId;
     }
 

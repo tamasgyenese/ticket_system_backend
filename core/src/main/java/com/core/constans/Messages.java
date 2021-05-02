@@ -54,7 +54,7 @@ public final class Messages {
     public static final String ERROR_MSG_90010 = "Már lefoglalt székre nem lehet jegyet eladni!";
     public static final long ERROR_CODE_90010 = 90010L;
 
-    public static final Map<Long, String> messagesMap =  Map.ofEntries(
+    public static final Map<Long, String> MESSAGE_MAP =  Map.ofEntries(
             entry(ERROR_CODE_10050, ERROR_MSG_10050),
             entry(ERROR_CODE_10051, ERROR_MSG_10051),
             entry(ERROR_CODE_10100, ERROR_MSG_10100),

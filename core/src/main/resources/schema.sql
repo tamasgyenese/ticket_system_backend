@@ -76,23 +76,3 @@ CREATE TABLE Seat
     CONSTRAINT seat_event_UI UNIQUE (ID,EVENT_ID),
     CONSTRAINT seat_event_FK FOREIGN KEY (EVENT_ID) REFERENCES Event (EVENT_ID)
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,5 +1,7 @@
 package com.core.userdetails.dao;
 
+import com.core.exception.CoreDAOException;
+
 public interface ICoreUserDetailsDAO {
 
     /**
@@ -9,9 +11,9 @@ public interface ICoreUserDetailsDAO {
      * @param deviceHash
      * @return
      */
-    long isValidToken(String email, long userId, String deviceHash, String token);
+    long isValidToken(String email, long userId, String deviceHash, String token) throws CoreDAOException;
 
-    long validateBankCard(long userId, String cardId, long eventId, String seatId);
+    long validateBankCard(long userId, String cardId, long eventId, String seatId) throws CoreDAOException;
 
 
 
