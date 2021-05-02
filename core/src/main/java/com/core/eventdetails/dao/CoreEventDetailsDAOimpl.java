@@ -7,6 +7,7 @@ import com.core.eventdetails.model.Event;
 import com.core.eventdetails.model.Seat;
 import com.core.eventdetails.rowmapper.EventMapper;
 import com.core.eventdetails.rowmapper.SeatMapper;
+import com.core.exception.CoreDAOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -27,31 +28,31 @@ public class CoreEventDetailsDAOimpl implements ICoreEventDetailsDAO {
     }
 
     @Override
-    public List<Event> getEvents() {
+    public List<Event> getEvents() throws CoreDAOException {
         try {
             return namedParameterJdbcTemplate.query(QueryConstants.GET_EVENTS, new EventMapper());
-        } catch (DataAccessException e) {
-            return null;
+        } catch (Exception e) {
+            throw new CoreDAOException(e.getMessage(), Messages.ERROR_CODE_20404);
         }
     }
 
     @Override
-    public Event getEventDetails(long eventId) {
+    public Event getEventDetails(long eventId) throws CoreDAOException {
         Map<String, Object> namedParameters = new HashMap<>();
         namedParameters.put(FieldConstants.DB_EVENT_ID, eventId);
         Event event = new Event(eventId);
         List<Seat> seats = null;
         try {
              seats = namedParameterJdbcTemplate.query(QueryConstants.GET_EVENT_SEATS, namedParameters, new SeatMapper());
-        } catch (DataAccessException e) {
-            // logger
+        } catch (Exception e) {
+            throw new CoreDAOException(e.getMessage(), Messages.ERROR_CODE_20404);
         }
         event.setSeats(seats);
         return event;
     }
 
     @Override
-    public long validateEvent(long eventId, String seatId) {
+    public long validateEvent(long eventId, String seatId) throws CoreDAOException {
         Map<String, Object> namedParameters = new HashMap<>();
         namedParameters.put(FieldConstants.DB_EVENT_ID, eventId);
         namedParameters.put(FieldConstants.DB_ID, seatId);
@@ -59,19 +60,19 @@ public class CoreEventDetailsDAOimpl implements ICoreEventDetailsDAO {
             return namedParameterJdbcTemplate.queryForObject(QueryConstants.VALIDATE_EVENT, namedParameters, Long.class);
         } catch (Exception e) {
             e.getMessage();
-            return Messages.ERROR_CODE_20404;
+            throw new CoreDAOException(e.getMessage(), Messages.ERROR_CODE_20404);
         }
     }
 
     @Override
-    public void reserveSeat(long eventId, String seatId) {
+    public void reserveSeat(long eventId, String seatId) throws CoreDAOException {
         Map<String, Object> namedParameters = new HashMap<>();
         namedParameters.put(FieldConstants.DB_EVENT_ID, eventId);
         namedParameters.put(FieldConstants.DB_ID, seatId);
         try {
             namedParameterJdbcTemplate.update(QueryConstants.RESERVE_SEAT, namedParameters);
         } catch (Exception e){
-            e.getMessage();
+            throw new CoreDAOException(e.getMessage(), Messages.ERROR_CODE_20404);
         }
     }
 }
