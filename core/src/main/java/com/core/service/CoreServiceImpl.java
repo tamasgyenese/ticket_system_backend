@@ -8,6 +8,8 @@ import com.core.eventdetails.model.Event;
 import com.core.eventdetails.model.Reserve;
 import com.core.exception.CoreDAOException;
 import com.core.userdetails.dao.ICoreUserDetailsDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,8 @@ import java.util.List;
 
 @Service
 public class CoreServiceImpl implements ICoreService {
+
+    Logger logger = LoggerFactory.getLogger(CoreServiceImpl.class);
 
     private final ICoreEventDetailsDAO iCoreEventDetailsDAO;
     private final ICoreUserDetailsDAO iCoreUserDetailsDAO;
@@ -60,23 +64,30 @@ public class CoreServiceImpl implements ICoreService {
     @Override
     @Transactional
     public long isValidToken(String token64) {
+        logger.debug("Validate token: {}", token64);
+        String email;
+        long userId;
+        String deviceHash;
         try {
             if (token64 == null || "".equals(token64)) {
+                logger.error("Failure during validation for token: {} with error code: {}", token64, Messages.ERROR_CODE_10051);
                 return Messages.ERROR_CODE_10051;
             }
             String[] values = decodedString(token64);
             if (values == null || values.length != 3) {
+                logger.error("Failure during validation for token: {} with error code: {}", token64, Messages.ERROR_CODE_10051);
                 return Messages.ERROR_CODE_10051;
             }
-            String email = values[0];
-            long id = Long.parseLong(values[1]);
-            String deviceHash = values[2];
-
-            return iCoreUserDetailsDAO.isValidToken(email, id, deviceHash, token64) == 1 ? Messages.SUCCESS_CODE : Messages.ERROR_CODE_10050;
+            email = values[0];
+            userId = Long.parseLong(values[1]);
+            deviceHash = values[2];
+            logger.debug("Token validation for email: {}, user: {}, device hash: {} with token: {}", email, userId, deviceHash, token64);
+            return iCoreUserDetailsDAO.isValidToken(email, userId, deviceHash, token64) == 1 ? Messages.SUCCESS_CODE : Messages.ERROR_CODE_10050;
         } catch (CoreDAOException e) {
-            e.printStackTrace();
+            logger.error("Failure during validation for token: {}", token64);
             return e.getErrorCode();
         } catch (Exception ex) {
+            logger.error("Failure during validation for token: {}", token64);
             return Messages.ERROR_CODE_10051;
         }
     }
