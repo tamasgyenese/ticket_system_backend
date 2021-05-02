@@ -25,6 +25,15 @@ public class CoreUserDetailsDAOimpl implements ICoreUserDetailsDAO {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
+    /**
+     * Validate token ->  is there a user with a given paramters?
+     * @param email
+     * @param userId
+     * @param deviceHash
+     * @param token
+     * @return
+     * @throws CoreDAOException
+     */
     @Override
     public long isValidToken(String email, long userId, String deviceHash, String token) throws CoreDAOException {
         logger.debug("Token validation for user: {} with token: {}", userId, token);
@@ -41,6 +50,15 @@ public class CoreUserDetailsDAOimpl implements ICoreUserDetailsDAO {
         }
     }
 
+    /**
+     * validate bank card -> check carid is related to the user, check amount to reserve the given seat at event
+     * @param userId
+     * @param cardId
+     * @param eventId
+     * @param seatId
+     * @return
+     * @throws CoreDAOException
+     */
     @Override
     public long validateBankCard(long userId, String cardId, long eventId, String seatId) throws CoreDAOException {
         logger.debug("Bank card validation for user: {} with cardId {}", userId, cardId);

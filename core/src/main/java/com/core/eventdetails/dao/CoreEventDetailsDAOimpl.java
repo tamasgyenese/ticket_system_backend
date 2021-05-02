@@ -30,9 +30,14 @@ public class CoreEventDetailsDAOimpl implements ICoreEventDetailsDAO {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
+    /**
+     * Get all evvent from DB
+     * @return
+     * @throws CoreDAOException
+     */
     @Override
     public List<Event> getEvents() throws CoreDAOException {
-        logger.debug("Getting all events");
+        logger.trace("Getting all events");
         try {
             return namedParameterJdbcTemplate.query(QueryConstants.GET_EVENTS, new EventMapper());
         } catch (Exception e) {
@@ -41,9 +46,15 @@ public class CoreEventDetailsDAOimpl implements ICoreEventDetailsDAO {
         }
     }
 
+    /**
+     * Get event details from DB
+     * @param eventId
+     * @return
+     * @throws CoreDAOException
+     */
     @Override
     public Event getEventDetails(long eventId) throws CoreDAOException {
-        logger.debug("Getting event details for event: {}", eventId);
+        logger.trace("Getting event details for event: {}", eventId);
         Map<String, Object> namedParameters = new HashMap<>();
         namedParameters.put(FieldConstants.DB_EVENT_ID, eventId);
         Event event = new Event(eventId);
@@ -59,9 +70,16 @@ public class CoreEventDetailsDAOimpl implements ICoreEventDetailsDAO {
         return event;
     }
 
+    /**
+     * Validate the seat that it's available or not within a given event in DB
+     * @param eventId
+     * @param seatId
+     * @return
+     * @throws CoreDAOException
+     */
     @Override
     public long validateEvent(long eventId, String seatId) throws CoreDAOException {
-        logger.debug("Event validation for event: {} and seat: {}", eventId, seatId);
+        logger.trace("Event validation for event: {} and seat: {}", eventId, seatId);
         Map<String, Object> namedParameters = new HashMap<>();
         namedParameters.put(FieldConstants.DB_EVENT_ID, eventId);
         namedParameters.put(FieldConstants.DB_ID, seatId);
@@ -73,9 +91,15 @@ public class CoreEventDetailsDAOimpl implements ICoreEventDetailsDAO {
         }
     }
 
+    /**
+     * Reserve a seat within an event in DB
+     * @param eventId
+     * @param seatId
+     * @throws CoreDAOException
+     */
     @Override
     public void reserveSeat(long eventId, String seatId) throws CoreDAOException {
-        logger.debug("Reserve seat: {} for event: {}", seatId, eventId);
+        logger.trace("Reserve seat: {} for event: {}", seatId, eventId);
         Map<String, Object> namedParameters = new HashMap<>();
         namedParameters.put(FieldConstants.DB_EVENT_ID, eventId);
         namedParameters.put(FieldConstants.DB_ID, seatId);

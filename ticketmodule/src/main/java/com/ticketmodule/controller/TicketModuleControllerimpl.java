@@ -1,4 +1,4 @@
-package com.api.controller;
+package com.ticketmodule.controller;
 
 import com.core.common.ServiceResponse;
 import com.core.eventdetails.model.Event;
@@ -7,22 +7,23 @@ import com.core.service.ICoreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
-@Service
-public class ApiControllerImpl implements IApiController{
+@RestController
+@RequestMapping("/ticket")
+public class TicketModuleControllerimpl {
 
-    Logger logger = LoggerFactory.getLogger(ApiControllerImpl.class);
+    Logger logger = LoggerFactory.getLogger(TicketModuleControllerimpl.class);
 
     private static final String HEADERS_AUTH = "authorization";
 
     private final ICoreService iCoreService;
 
     @Autowired
-    public ApiControllerImpl(ICoreService iCoreService) {
+    public TicketModuleControllerimpl(ICoreService iCoreService) {
         this.iCoreService = iCoreService;
     }
 
@@ -31,8 +32,9 @@ public class ApiControllerImpl implements IApiController{
      * @param headers HTTP header Authentication credentials to authenticate a user
      * @return List of Event
      */
-    @Override
-    public ServiceResponse<List<Event>> getEvents(Map<String, String> headers) {
+    @GetMapping("/getEvents")
+    @ResponseBody
+    public ServiceResponse<List<Event>> getEvents(@RequestHeader Map<String, String> headers) {
         logger.trace("Get all events from core module with header: {}", headers);
         return iCoreService.getEvents(headers.get(HEADERS_AUTH));
     }
@@ -43,8 +45,9 @@ public class ApiControllerImpl implements IApiController{
      * @param id eventId
      * @return Event
      */
-    @Override
-    public ServiceResponse<Event> getEvent(Map<String, String> headers, long id) {
+    @GetMapping("/getEvent/{id}")
+    @ResponseBody
+    public ServiceResponse<Event> getEvent(@RequestHeader Map<String, String> headers, long id) {
         logger.trace("Get event details for event: {} with header: {}", id, headers);
         return iCoreService.getEventDetails(id,headers.get(HEADERS_AUTH));
     }
@@ -57,8 +60,9 @@ public class ApiControllerImpl implements IApiController{
      * @param cardId
      * @return
      */
-    @Override
-    public ServiceResponse<Reserve> pay(Map<String, String> headers, long eventId, String seatId, String cardId) {
+    @PostMapping("/pay/eventId/{eventId}/seatId/{seatId}/cardId/{cardId}")
+    @ResponseBody
+    public ServiceResponse<Reserve> reserve(@RequestHeader Map<String, String> headers, long eventId, String seatId, String cardId) {
         logger.trace("Trying to reserve a seat: {} for event: {} with cardid: {} and header: {}",seatId, eventId, cardId, headers);
         return iCoreService.payValidation(eventId, seatId, cardId,headers.get(HEADERS_AUTH));
     }

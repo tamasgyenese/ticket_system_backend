@@ -1,5 +1,8 @@
 package com.core.constans;
 
+/**
+ * SQL queries
+ */
 public final class QueryConstants {
 
     public static final String VALIDATE_TOKEN = "SELECT COUNT(1)\n"

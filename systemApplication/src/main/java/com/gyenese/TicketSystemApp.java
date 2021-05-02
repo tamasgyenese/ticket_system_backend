@@ -6,7 +6,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.api", "com.core"})
+@ComponentScan(basePackages = {"com.api","com.ticketmodule","com.core"})
 public class TicketSystemApp extends SpringBootServletInitializer {
 
 

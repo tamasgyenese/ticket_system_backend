@@ -7,6 +7,10 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * Generic class to use as a JSON response object
+ * @param <T>
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ServiceResponse<T> implements Serializable {
 
