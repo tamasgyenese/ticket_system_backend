@@ -4,6 +4,10 @@ import java.util.Map;
 
 import static java.util.Map.entry;
 
+/**
+ * Error codes and messages
+ * Use MESSAGE_MAP to get a corresponding message for code
+ */
 public final class Messages {
 
     // 10050

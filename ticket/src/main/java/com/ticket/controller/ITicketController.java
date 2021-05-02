@@ -1,19 +1,20 @@
-package com.api.controller;
+package com.ticket.controller;
 
 import com.core.common.ServiceResponse;
 import com.core.eventdetails.model.Reserve;
 import org.springframework.web.bind.annotation.*;
 import com.core.eventdetails.model.Event;
+
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ticket")
 public interface ITicketController {
 
-    @GetMapping("/getEvents")
+    @GetMapping("/test")
     @ResponseBody
-    ServiceResponse<List<Event>> getEvents(@RequestHeader Map<String, String> headers);
+    ServiceResponse<List<Event>> getEvents(@RequestHeader Map<String, String> headers, HttpServletResponse response);
 
     @GetMapping("/getEvent/{id}")
     @ResponseBody

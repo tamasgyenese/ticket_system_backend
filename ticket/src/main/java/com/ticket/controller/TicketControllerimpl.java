@@ -1,4 +1,4 @@
-package com.api.controller;
+package com.ticket.controller;
 
 import com.core.common.ServiceResponse;
 import com.core.eventdetails.model.Event;
@@ -7,32 +7,33 @@ import com.core.service.ICoreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
-@Service
-public class ApiControllerImpl implements IApiController{
+public class TicketControllerimpl implements ITicketController {
 
-    Logger logger = LoggerFactory.getLogger(ApiControllerImpl.class);
+    Logger logger = LoggerFactory.getLogger(TicketControllerimpl.class);
 
     private static final String HEADERS_AUTH = "authorization";
 
     private final ICoreService iCoreService;
 
     @Autowired
-    public ApiControllerImpl(ICoreService iCoreService) {
+    public TicketControllerimpl(ICoreService iCoreService) {
         this.iCoreService = iCoreService;
     }
 
     /**
      * Get List of Event after token validation
      * @param headers HTTP header Authentication credentials to authenticate a user
+     * @param response
      * @return List of Event
      */
     @Override
-    public ServiceResponse<List<Event>> getEvents(Map<String, String> headers) {
+    public ServiceResponse<List<Event>> getEvents(Map<String, String> headers, HttpServletResponse response) {
+        response.addHeader("TEST","TAMAS");
         logger.trace("Get all events from core module with header: {}", headers);
         return iCoreService.getEvents(headers.get(HEADERS_AUTH));
     }
@@ -58,7 +59,7 @@ public class ApiControllerImpl implements IApiController{
      * @return
      */
     @Override
-    public ServiceResponse<Reserve> pay(Map<String, String> headers, long eventId, String seatId, String cardId) {
+    public ServiceResponse<Reserve> reserve(Map<String, String> headers, long eventId, String seatId, String cardId) {
         logger.trace("Trying to reserve a seat: {} for event: {} with cardid: {} and header: {}",seatId, eventId, cardId, headers);
         return iCoreService.payValidation(eventId, seatId, cardId,headers.get(HEADERS_AUTH));
     }

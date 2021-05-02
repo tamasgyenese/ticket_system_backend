@@ -1,5 +1,8 @@
 package com.core.constans;
 
+/**
+ * Field constants for mapping DB columns
+ */
 public final class FieldConstants {
 
     // UserDetails
