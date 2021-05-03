@@ -1,4 +1,4 @@
-package com.api.controller;
+package com.ticketmodule.controller;
 
 import com.core.common.ServiceResponse;
 import com.core.eventdetails.model.Event;
@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-public interface IApiController {
+@RequestMapping("/ticket")
+public interface ITicketModuleController {
+
 
     @GetMapping("/getEvents")
     @ResponseBody
@@ -19,8 +21,8 @@ public interface IApiController {
     @ResponseBody
     ServiceResponse<Event> getEvent(@RequestHeader Map<String, String> headers, @PathVariable long id);
 
-    @PostMapping("/pay/eventId/{eventId}/seatId/{seatId}/cardId/{cardId}")
+    @PostMapping("/reserve/eventId/{eventId}/seatId/{seatId}/cardId/{cardId}")
     @ResponseBody
-    ServiceResponse<Reservation> pay(@RequestHeader Map<String, String> headers, @PathVariable long eventId, @PathVariable String seatId, @PathVariable String cardId);
+    ServiceResponse<Reservation> reserve(@RequestHeader Map<String, String> headers, @PathVariable long eventId, @PathVariable String seatId, @PathVariable String cardId);
 
 }
