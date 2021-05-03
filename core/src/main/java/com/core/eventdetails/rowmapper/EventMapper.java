@@ -7,6 +7,9 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * RowMapper class for Event POJO
+ */
 public class EventMapper implements RowMapper<Event> {
 
     @Override

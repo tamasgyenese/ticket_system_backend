@@ -7,6 +7,9 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * RowMapper class for Seat POJO
+ */
 public class SeatMapper implements RowMapper<Seat> {
 
     @Override

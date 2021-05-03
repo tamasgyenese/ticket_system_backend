@@ -2,6 +2,9 @@ package com.core.eventdetails.model;
 
 import java.util.Objects;
 
+/**
+ * POJO
+ */
 public class Seat {
 
     private String id;

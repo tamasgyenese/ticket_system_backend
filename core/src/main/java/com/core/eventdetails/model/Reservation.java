@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * POJO
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Reservation {
 

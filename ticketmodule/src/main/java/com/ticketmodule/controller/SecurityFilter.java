@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Add APi_KEY-API_VALUE to response header
+ */
 public class SecurityFilter extends OncePerRequestFilter {
 
     private static final String API_VALUE="b7efbc44-991b-4f70-b8e9-48230f29e954";

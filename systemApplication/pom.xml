@@ -19,12 +19,12 @@
         </dependency>
         <dependency>
             <groupId>com.gyenese</groupId>
-            <artifactId>api</artifactId>
+            <artifactId>ticketmodule</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.gyenese</groupId>
-            <artifactId>ticketmodule</artifactId>
+            <artifactId>api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
