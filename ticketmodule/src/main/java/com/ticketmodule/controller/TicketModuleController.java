@@ -9,21 +9,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/ticket")
-public class TicketModuleControllerimpl {
+public class TicketModuleController {
 
-    Logger logger = LoggerFactory.getLogger(TicketModuleControllerimpl.class);
+    Logger logger = LoggerFactory.getLogger(TicketModuleController.class);
 
     private static final String HEADERS_AUTH = "authorization";
 
     private final ICoreService iCoreService;
 
     @Autowired
-    public TicketModuleControllerimpl(ICoreService iCoreService) {
+    public TicketModuleController(ICoreService iCoreService) {
         this.iCoreService = iCoreService;
     }
 
