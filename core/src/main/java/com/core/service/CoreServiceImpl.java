@@ -5,7 +5,7 @@ import com.core.constans.FieldConstants;
 import com.core.constans.Messages;
 import com.core.eventdetails.dao.ICoreEventDetailsDAO;
 import com.core.eventdetails.model.Event;
-import com.core.eventdetails.model.Reserve;
+import com.core.eventdetails.model.Reservation;
 import com.core.exception.CoreDAOException;
 import com.core.userdetails.dao.ICoreUserDetailsDAO;
 import org.slf4j.Logger;
@@ -118,7 +118,7 @@ public class CoreServiceImpl implements ICoreService {
      */
     @Override
     @Transactional
-    public ServiceResponse<Reserve> payValidation(long eventId, String seatId, String cardId, String token) {
+    public ServiceResponse<Reservation> payValidation(long eventId, String seatId, String cardId, String token) {
         logger.trace("Pay validation for event: {}, setad: {}, cardid: {}, token:{}", eventId, seatId, cardId, token);
         long validator = isValidToken(token);
         if (validator != Messages.SUCCESS_CODE) {

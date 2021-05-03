@@ -5,9 +5,9 @@
     <packaging>pom</packaging>
     <modules>
         <module>core</module>
-        <module>api</module>
         <module>systemApplication</module>
         <module>ticketmodule</module>
+        <module>api</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -36,6 +36,8 @@
         <h2.database.version>1.4.200</h2.database.version>
         <mocito.version>3.6.28</mocito.version>
         <start-class>com.bt.collab.alu.core.webapp.Application</start-class>
+        <maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
+        <maven.javadoc.skip>false</maven.javadoc.skip>
     </properties>
     <dependencies>
         <dependency>
@@ -90,6 +92,19 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

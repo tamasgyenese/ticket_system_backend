@@ -1,5 +1,8 @@
 package com.core.exception;
 
+/**
+ * Exception for DAO layer
+ */
 public class CoreDAOException extends Exception {
 
     private long errorCode;

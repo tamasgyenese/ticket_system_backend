@@ -2,21 +2,23 @@ package com.core.eventdetails.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
+/**
+ * POJO
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Reserve {
+public class Reservation {
 
     private long reservationID;
     private boolean success;
     private int errorCode;
 
-    public Reserve() {
+    public Reservation() {
     }
 
-    public Reserve(boolean success) {
+    public Reservation(boolean success) {
         this.success = success;
         if (success) {
             Random random = new Random();
@@ -24,7 +26,7 @@ public class Reserve {
         }
     }
 
-    public Reserve(boolean success, int errorCode) {
+    public Reservation(boolean success, int errorCode) {
         this.success = success;
         this.errorCode = errorCode;
     }
@@ -53,10 +55,10 @@ public class Reserve {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Reserve reserve = (Reserve) o;
-        return reservationID == reserve.reservationID &&
-                success == reserve.success &&
-                errorCode == reserve.errorCode;
+        Reservation reservation = (Reservation) o;
+        return reservationID == reservation.reservationID &&
+                success == reservation.success &&
+                errorCode == reservation.errorCode;
     }
 
     @Override

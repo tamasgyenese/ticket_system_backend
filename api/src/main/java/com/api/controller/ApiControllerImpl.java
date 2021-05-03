@@ -2,7 +2,7 @@ package com.api.controller;
 
 import com.core.common.ServiceResponse;
 import com.core.eventdetails.model.Event;
-import com.core.eventdetails.model.Reserve;
+import com.core.eventdetails.model.Reservation;
 import com.core.service.ICoreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,7 +58,7 @@ public class ApiControllerImpl implements IApiController{
      * @return
      */
     @Override
-    public ServiceResponse<Reserve> pay(Map<String, String> headers, long eventId, String seatId, String cardId) {
+    public ServiceResponse<Reservation> pay(Map<String, String> headers, long eventId, String seatId, String cardId) {
         logger.trace("Trying to reserve a seat: {} for event: {} with cardid: {} and header: {}",seatId, eventId, cardId, headers);
         return iCoreService.payValidation(eventId, seatId, cardId,headers.get(HEADERS_AUTH));
     }
