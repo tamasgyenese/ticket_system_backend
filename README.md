@@ -9,9 +9,8 @@
 
 Structure of the database
 
+![Alt text](dbs.jpg?raw=true)
 
-
-![Alt text](db.jpg?raw=true "db")
 
 ## Authors
 * Tamas Gyenese
