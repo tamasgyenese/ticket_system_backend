@@ -17,7 +17,7 @@ public class ApiControllerImpl implements IApiController{
 
     Logger logger = LoggerFactory.getLogger(ApiControllerImpl.class);
 
-    private static final String HEADERS_AUTH = "authorization";
+    private static final String HEADERS_AUTH = "token";
 
     private final ICoreService iCoreService;
 
