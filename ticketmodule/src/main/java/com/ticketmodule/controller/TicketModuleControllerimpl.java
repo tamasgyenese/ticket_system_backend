@@ -17,7 +17,7 @@ public class TicketModuleControllerimpl implements ITicketModuleController{
 
     Logger logger = LoggerFactory.getLogger(TicketModuleControllerimpl.class);
 
-    private static final String HEADERS_AUTH = "authorization";
+    private static final String HEADERS_AUTH = "token";
 
     private final ICoreService iCoreService;
 
