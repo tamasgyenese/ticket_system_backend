@@ -75,4 +75,27 @@ public class CoreUserDetailsDAOimpl implements ICoreUserDetailsDAO {
         }
 
     }
+
+    /**
+     * Deposit money from the given card if the reservation for the required seat was ok
+     * @param cardId
+     * @param eventId
+     * @param seatId
+     * @throws CoreDAOException
+     * @return
+     */
+    @Override
+    public void chargeMoneyFromCard(String cardId, long eventId, String seatId) throws CoreDAOException {
+        logger.trace("Deposit money from: {} card for event:{} and seat: {}", cardId, eventId, seatId);
+        HashMap<String, Object> namedParameters = new HashMap<>();
+        namedParameters.put(FieldConstants.DB_FIELD_CARD_ID, cardId);
+        namedParameters.put(FieldConstants.DB_EVENT_ID, eventId);
+        namedParameters.put(FieldConstants.DB_ID, seatId);
+        try {
+            namedParameterJdbcTemplate.update(QueryConstants.CHARGE_MONEY, namedParameters);
+        } catch (Exception e) {
+            logger.error("Error during charge money from: {} card for event:{} and seat: {}", cardId, eventId, seatId);
+            throw new CoreDAOException(e.getMessage(), Messages.ERROR_CODE_20404);
+        }
+    }
 }

@@ -52,4 +52,14 @@ public final class QueryConstants {
                                            +  "    SET s.RESERVED = TRUE\n"
                                            +  "WHERE S.EVENT_ID=:EVENT_ID AND S.ID=:ID;";
 
+
+    public static final String CHARGE_MONEY = "UPDATE USERBANKCARD\n"
+                                            + "SET AMOUNT = AMOUNT - (SELECT PRICE\n"
+                                            + "                       FROM SEAT\n"
+                                            + "                                INNER JOIN EVENT E on SEAT.EVENT_ID = E.EVENT_ID\n"
+                                            + "                       WHERE E.EVENT_ID = :EVENT_ID\n"
+                                            + "                         AND ID = :ID\n"
+                                            + "                       LIMIT 1)\n"
+                                            + "WHERE CARD_ID = :CARD_ID;";
+
 }

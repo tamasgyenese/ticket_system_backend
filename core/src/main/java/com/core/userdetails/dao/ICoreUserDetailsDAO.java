@@ -15,6 +15,8 @@ public interface ICoreUserDetailsDAO {
 
     long validateBankCard(long userId, String cardId, long eventId, String seatId) throws CoreDAOException;
 
+    void chargeMoneyFromCard(String cardId, long eventId, String seatId) throws CoreDAOException;
+
 
 
 
