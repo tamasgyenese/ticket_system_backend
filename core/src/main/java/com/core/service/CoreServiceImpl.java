@@ -134,8 +134,8 @@ public class CoreServiceImpl implements ICoreService {
             }
             long cardValidate = iCoreUserDetailsDAO.validateBankCard(userId, cardId, eventId, seatId);
             if (cardValidate == Messages.SUCCESS_CODE) {
-                logger.error("Failure during card validation for card: {} and user: {}", cardId, userId);
                 iCoreEventDetailsDAO.reserveSeat(eventId, seatId);
+                iCoreUserDetailsDAO.chargeMoneyFromCard(cardId, eventId, cardId);
             } else {
                 return new ServiceResponse<>(null, false, Messages.MESSAGE_MAP.get(cardValidate), cardValidate);
             }
